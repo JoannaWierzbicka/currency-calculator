@@ -14,7 +14,7 @@ Wynik działania aplikacji mógłby się sprowadzać do poniższej tabeli:
 | --- | --- | --- | --- | --- | --- | --- |
 | EUR | 100 | 2020-01-01 | 4.38 | 4.49 | 449.00 | 11.00 (+2.5%) |
 | EUR | 100 | 2020-03-01 | 4.48 | 4.49 | 449.00 |  1.00 (+0.2%) |
-| USD | 100 | 2020-03-01 | 3.91 | 3.71 | 371.00 |  20.00 (-5.2%) |
+| USD | 100 | 2020-03-01 | 3.91 | 3.71 | 371.00 |  -20.00 (-5.2%) |
 
 Zarządzenie stanem ma zostać zaimplementowane przy pomocy Redux-a, wykorzystując oddzielny Magazyn dla danych z *localStorage* ([przykład](https://dev.to/link2twenty/react-redux-and-localstorage-2lih)) oraz dla *API*. Całość ma zostać połączona przy pomocy `.combineReducers()`.
 
