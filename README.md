@@ -1,3 +1,10 @@
+> ⭐ ***README** to coś więcej niż opis. Poprzez nie **pokazujesz swoje mocne strony** – swoją dokładność, sposób myślenia i podejście do rozwiązywania problemów. Niech Twoje README pokaże, że masz **świetne predyspozycje do rozwoju!***
+> 
+> 🎁 *Zacznij od razu. Skorzystaj z **[szablonu README i wskazówek](https://github.com/devmentor-pl/readme-template)**.* 
+
+&nbsp;
+
+
 # Portfel walutowy
 
 Twoim zadaniem jest zbudować aplikację, która będzie obliczać potencjalny zysk lub stratę dla posiadanych walut.
@@ -22,3 +29,11 @@ Należy tak napisać rozwiązanie, aby każdy z elementów w łatwy sposób moż
 
 
 PS. Jeśli uznasz, że Twoja aplikacja powinna być bardziej rozbudoana możesz przechowywać historię sprawdzeń danej waluty w *localStorage* i [generować wykres](https://github.com/jerairrest/react-chartjs-2) przezentujący poziom zysków lub strat dla danej pozycji.
+
+
+
+&nbsp;
+
+> ⭐ ***README** to coś więcej niż opis. Poprzez nie **pokazujesz swoje mocne strony** – swoją dokładność, sposób myślenia i podejście do rozwiązywania problemów. Niech Twoje README pokaże, że masz **świetne predyspozycje do rozwoju!***
+> 
+> 🎁 *Zacznij od razu. Skorzystaj z **[szablonu README i wskazówek](https://github.com/devmentor-pl/readme-template)**.* 
