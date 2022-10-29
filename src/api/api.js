@@ -9,11 +9,10 @@ const requestOptions = {
   headers: myHeaders
 }
 
-export const fetchData = (currency) => {
-  return fetch(`${URL}/latest?base=PLN&symbols=${currency}`, requestOptions)
+export const getExchangeRate = (date, currency) => {
+  return fetch(`${URL}/${date}?&symbols=${currency}&base=PLN`, requestOptions)
     .then(response => response.json())
-    .then(result => console.log(result))
     .catch(error => console.log('error', error))
 }
 
-export default fetchData
+export default getExchangeRate

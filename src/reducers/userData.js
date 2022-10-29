@@ -1,23 +1,24 @@
 const ADD_DATA = 'addData'
 
 const initState = {
-  data: []
+  userData: []
 }
 
-export const reducerCurr = (state = initState, action) => {
+export const reducerUserData = (state = initState, action) => {
   switch (action.type) {
     case ADD_DATA:
+      console.log(state.userData)
       return {
         ...state,
-        data: state.data.concat({
+        userData: [...state.userData, {
           currency: action.payload.currency,
-          quantity: action.payload.quantity,
+          amount: action.payload.amount,
           date: action.payload.date
-        })
+        }]
       }
     default:
       return state
   }
 }
 
-export default reducerCurr
+export default reducerUserData

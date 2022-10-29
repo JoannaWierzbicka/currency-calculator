@@ -1,26 +1,31 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import createActionAdd from '../actions/add'
-import Table from './Table'
-import fetchData from '../api/api'
+import { useDispatch } from 'react-redux'
+import { createActionAdd } from '../actions/add'
+import getExchangeRate from '../api/api'
+import DateToday from '../date'
+
+const today = DateToday()
 
 export const Form = () => {
   const [currency, setCurrency] = React.useState('')
-  const [quantity, setQuantity] = React.useState(0)
+  const [amount, setAmount] = React.useState(0)
   const [date, setDate] = React.useState('')
 
-  const currencyInfo = { currency, quantity, date }
+  const currencyInfo = { currency, amount, date }
 
   const dispatch = useDispatch()
-  const data = useSelector(state => state.data)
+
+  const getInfoAboutPrice = (date, currency) => {
+    getExchangeRate(date, currency)
+      .then(data => console.log(data))
+  }
 
   const handleSubmit = (e) => {
+    getInfoAboutPrice(date, currency)
     e.preventDefault()
     dispatch(createActionAdd(currencyInfo))
   }
-
-  //   fetchData('EUR')
 
   return (
     <>
@@ -31,9 +36,9 @@ export const Form = () => {
           onChange={(e) => setCurrency(e.target.value)}
         />
         <input
-          value={quantity}
+          value={amount}
           placeholder={'quantity'}
-          onChange={(e) => setQuantity(e.target.value)}
+          onChange={(e) => setAmount(e.target.value)}
         />
         <input
           value={date}
@@ -42,7 +47,6 @@ export const Form = () => {
         />
         <button>OK</button>
       </form>
-      <Table data={data}/>
     </>
 
   )

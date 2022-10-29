@@ -1,9 +1,15 @@
 const ADD_DATA = 'addData'
+const ADD_API_DATA = 'addApiData'
 
-export const createActionAdd = (userData) => ({
+const createActionAdd = (userData) => ({
   type: ADD_DATA,
   payload: userData
 
 })
 
-export default createActionAdd
+const createActionApi = (apiData) => ({
+  type: ADD_API_DATA,
+  payload: apiData
+})
+
+export { createActionAdd, createActionApi }
