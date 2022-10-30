@@ -2,27 +2,17 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { createActionAdd } from '../actions/add'
-import getExchangeRate from '../api/api'
-import DateToday from '../date'
-
-const today = DateToday()
 
 export const Form = () => {
   const [currency, setCurrency] = React.useState('')
-  const [amount, setAmount] = React.useState(0)
+  const [quantity, setQuantity] = React.useState(0)
   const [date, setDate] = React.useState('')
-
-  const currencyInfo = { currency, amount, date }
+  const [price, setPrice] = React.useState(0)
+  const currencyInfo = { currency, quantity, date, price }
 
   const dispatch = useDispatch()
 
-  const getInfoAboutPrice = (date, currency) => {
-    getExchangeRate(date, currency)
-      .then(data => console.log(data))
-  }
-
   const handleSubmit = (e) => {
-    getInfoAboutPrice(date, currency)
     e.preventDefault()
     dispatch(createActionAdd(currencyInfo))
   }
@@ -36,14 +26,19 @@ export const Form = () => {
           onChange={(e) => setCurrency(e.target.value)}
         />
         <input
-          value={amount}
+          value={quantity}
           placeholder={'quantity'}
-          onChange={(e) => setAmount(e.target.value)}
+          onChange={(e) => setQuantity(e.target.value)}
         />
         <input
           value={date}
           placeholder={'date'}
           onChange={(e) => setDate(e.target.value)}
+        />
+        <input
+          value={price}
+          placeholder={'price'}
+          onChange={(e) => setPrice(e.target.value)}
         />
         <button>OK</button>
       </form>

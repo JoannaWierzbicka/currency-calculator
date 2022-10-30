@@ -9,7 +9,7 @@ export const reducerApiData = (state = initState, action) => {
     case ADD_API_DATA:
       return {
         ...state,
-        apiData: [...state.apiData, action.payload.rates]
+        apiData: [action.payload]
       }
     default:
       return state

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable space-before-function-paren */
 import * as React from 'react'
@@ -10,21 +11,33 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
-
-const createData = (currency, amount, date, price, currencyToday, totalValue, profitOrLoss) => {
-  return { currency, amount, date, price, currencyToday, totalValue, profitOrLoss }
-}
+import getCurrentRates from '../api/api'
 
 export const BasicTable = () => {
   const { userData } = useSelector(state => state.userData)
   const { apiData } = useSelector(state => state.apiData)
   const dispatch = useDispatch()
-  console.log('user:', userData)
-  console.log('api:', apiData)
 
-  const rows = userData.map(data => {
-    return createData(data.currency, data.amount, data.date)
-  })
+  React.useEffect(() => {
+    return apiData.length === 0 ? dispatch(getCurrentRates()) : null
+  }, [])
+
+  const getTodaysPrice = (curr) => {
+    return 1 / apiData[0].rates[curr]
+  }
+
+  const getPresentValue = (priceToday, quantity) => {
+    const total = (priceToday * quantity).toFixed(2)
+    return `${total} zł`
+  }
+
+  const getProfitOrLoss = (quantity, price, priceToday) => {
+    const total = ((quantity * priceToday) - (quantity * price)).toFixed(2)
+    const percent = ((1 - ((quantity * price) / (quantity * priceToday))) * 100).toFixed(2)
+    return total > 0 ? `Zysk: ${total} zł (${percent}%)` : `Strata: ${total} zł (${percent}%)`
+  }
+
+  const rows = userData.map(data => ({ ...data, priceToday: getTodaysPrice(data.currency) }))
 
   return (
     <TableContainer component={Paper}>
@@ -44,7 +57,7 @@ export const BasicTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {rows.map(({ currency, quantity, date, price, priceToday }) => (
             <TableRow
               key={uuid()}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -53,13 +66,14 @@ export const BasicTable = () => {
                 component={'th'}
                 scope={'row'}
               >
-                {row.currency}
+                {currency}
               </TableCell>
-              <TableCell align={'right'}>{row.amount}</TableCell>
-              <TableCell align={'right'}>{row.date}</TableCell>
-              <TableCell align={'right'}>{row.price}</TableCell>
-              <TableCell align={'right'}>{row.totalValue}</TableCell>
-              <TableCell align={'right'}>{row.profitOrLoss}</TableCell>
+              <TableCell align={'right'}>{quantity}</TableCell>
+              <TableCell align={'right'}>{date}</TableCell>
+              <TableCell align={'right'}>{price} zł</TableCell>
+              <TableCell align={'right'}>{priceToday.toFixed(2)} zł</TableCell>
+              <TableCell align={'right'}>{getPresentValue(priceToday, quantity)}</TableCell>
+              <TableCell align={'right'}>{getProfitOrLoss(quantity, price, priceToday)}</TableCell>
             </TableRow>
           ))}
         </TableBody>

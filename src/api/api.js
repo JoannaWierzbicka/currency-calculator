@@ -1,3 +1,5 @@
+import { createActionApi } from '../actions/add'
+
 const URL = 'https://api.apilayer.com/exchangerates_data'
 
 const myHeaders = new Headers()
@@ -9,10 +11,14 @@ const requestOptions = {
   headers: myHeaders
 }
 
-export const getExchangeRate = (date, currency) => {
-  return fetch(`${URL}/${date}?&symbols=${currency}&base=PLN`, requestOptions)
-    .then(response => response.json())
-    .catch(error => console.log('error', error))
+export const getCurrentRates = () => (dispatch) => {
+  return fetch(`${URL}/latest?&symbols&base=PLN`, requestOptions)
+    .then(response => {
+      if (response.ok) {
+        return response.json()
+      } throw Error('Error')
+    })
+    .then(response => dispatch(createActionApi(response)))
 }
 
-export default getExchangeRate
+export default getCurrentRates
