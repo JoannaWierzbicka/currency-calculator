@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import * as React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-// import { v4 as uuid } from 'uuid'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -10,7 +9,8 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import { getCurrentRates, getRatesByDate } from '../api/api'
-import { changeData } from '../actions/add'
+import { changeData } from '../actions/changeData'
+import Tooltip from '@mui/material/Tooltip'
 
 export const BasicTable = () => {
   const { userData } = useSelector(state => state.userData)
@@ -38,12 +38,24 @@ export const BasicTable = () => {
 
   const rows = userData.map(data => ({ ...data, priceToday: getTodaysPrice(data.currency) }))
 
-  const onClick = (date, currency, id) => {
+  const handleChangeClick = (date, currency, id, e) => {
     getRatesByDate(date, currency).then(data => {
       const rate = (1 / data.rates[currency]).toFixed(2)
-      dispatch(changeData(rate, id))
+      if (window.confirm(`Kurs ${currency} w dniu ${date} wynosił: ${rate}. Czy zmienić wartość tabeli?`)) {
+        e.target.remove()
+        dispatch(changeData(rate, id))
+      }
     })
   }
+
+  const getRates = (date, currency) => {
+    return getRatesByDate(date, currency).then(data => {
+      const rate = (1 / data.rates[currency]).toFixed(2)
+    })
+  }
+
+  const price = getRates('2022-10-10', 'EUR')
+  console.log(price)
 
   return (
     <TableContainer component={Paper}>
@@ -76,11 +88,21 @@ export const BasicTable = () => {
               </TableCell>
               <TableCell align={'right'}>{quantity}</TableCell>
               <TableCell align={'right'}>{date}</TableCell>
-              <TableCell align={'right'}>{price} zł <button onClick={() => onClick(date, currency, id)}>check</button></TableCell>
+              <TableCell align={'right'}>{price} zł
+                {price === getRates(date, currency)
+                  ? (<Tooltip title={'Sprawdź dokładną cenę z tego dnia'}><button
+                      onClick={(e) => handleChangeClick(date, currency, id, e)}
+                                                                          >?
+                  </button>
+                  </Tooltip>)
+                  : null}
+
+              </TableCell>
               <TableCell align={'right'}>{priceToday.toFixed(2)} zł</TableCell>
               <TableCell align={'right'}>{getPresentValue(priceToday, quantity)}</TableCell>
               <TableCell align={'right'}>{getProfitOrLoss(quantity, price, priceToday)}</TableCell>
             </TableRow>
+
           ))}
         </TableBody>
       </Table>

@@ -1,4 +1,4 @@
-const ADD_API_DATA = 'addApiData'
+import types from '../types/types'
 
 const initState = {
   apiData: []
@@ -6,7 +6,7 @@ const initState = {
 
 export const reducerApiData = (state = initState, action) => {
   switch (action.type) {
-    case ADD_API_DATA:
+    case types.ADD_API_DATA:
       return {
         ...state,
         apiData: [action.payload]

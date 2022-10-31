@@ -1,14 +1,12 @@
 import { v4 as uuid } from 'uuid'
-
-const ADD_DATA = 'addData'
-
+import types from '../types/types'
 const initState = {
   userData: []
 }
 
 export const reducerUserData = (state = initState, action) => {
   switch (action.type) {
-    case ADD_DATA:
+    case types.ADD_DATA:
       return {
         ...state,
         userData: [...state.userData, {
@@ -19,7 +17,7 @@ export const reducerUserData = (state = initState, action) => {
           id: uuid()
         }]
       }
-    case 'change':
+    case types.CHANGE:
       return {
         ...state,
         userData: state.userData.map((data) => {

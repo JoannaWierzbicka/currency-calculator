@@ -1,4 +1,4 @@
-import { createActionApi } from '../actions/add'
+import { createActionApi } from '../actions/addApiData'
 
 const URL = 'https://api.apilayer.com/exchangerates_data'
 
