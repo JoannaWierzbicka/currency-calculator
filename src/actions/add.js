@@ -12,4 +12,9 @@ const createActionApi = (apiData) => ({
   payload: apiData
 })
 
-export { createActionAdd, createActionApi }
+const changeData = (rate, id) => ({
+  type: 'change',
+  payload: { rate: rate, id: id }
+})
+
+export { createActionAdd, createActionApi, changeData }

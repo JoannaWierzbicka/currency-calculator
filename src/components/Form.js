@@ -1,13 +1,16 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { createActionAdd } from '../actions/add'
+// import { getRatesByDate } from '../api/api'
+import options from '../options'
 
 export const Form = () => {
   const [currency, setCurrency] = React.useState('')
   const [quantity, setQuantity] = React.useState(0)
   const [date, setDate] = React.useState('')
   const [price, setPrice] = React.useState(0)
+  const { userData } = useSelector(state => state.userData)
   const currencyInfo = { currency, quantity, date, price }
 
   const dispatch = useDispatch()
@@ -20,11 +23,19 @@ export const Form = () => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <input
+        <select
           value={currency}
-          placeholder={'currency'}
           onChange={(e) => setCurrency(e.target.value)}
-        />
+        >{options.map((option) => {
+          return <option
+            key={option}
+            value={option}
+                 >{option}
+          </option>
+        })}
+
+        </select>
+
         <input
           value={quantity}
           placeholder={'quantity'}
