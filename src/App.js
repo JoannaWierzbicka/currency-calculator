@@ -5,10 +5,15 @@ import StyledDiv from './styled/StyledDiv'
 
 export const App = () => {
   return (
-    <StyledDiv>
-      <Form/>
-      <BasicTable/>
-    </StyledDiv>
+    <>
+      <h3 style={{ textAlign: 'center' }}>KALKULATOR WALUTOWY</h3>
+      <StyledDiv>
+
+        <Form/>
+        <BasicTable/>
+      </StyledDiv>
+    </>
+
   )
 }
 

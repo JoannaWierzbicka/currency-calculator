@@ -3,25 +3,44 @@ import { useDispatch } from 'react-redux'
 import { createActionAdd } from '../actions/addUserData'
 import options from '../options'
 import StyledForm from '../styled/StyledForm'
+import StyledLabel from '../styled/StyledLabel'
+import StyledInput from '../styled/StyledInput'
+import { getRatesByDate } from '../api/api'
+import { changeData } from '../actions/changeData'
+import { v4 as uuid } from 'uuid'
 
 export const Form = () => {
   const [currency, setCurrency] = React.useState('')
   const [quantity, setQuantity] = React.useState(0)
   const [date, setDate] = React.useState('')
   const [price, setPrice] = React.useState(0)
-  const currencyInfo = { currency, quantity, date, price }
+  const [id, setId] = React.useState(uuid())
+  const currencyInfo = { currency, quantity, date, price, id }
 
   const dispatch = useDispatch()
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    setId(uuid())
     dispatch(createActionAdd(currencyInfo))
+  }
+
+  const handleClick = () => {
+    getRatesByDate(date, currency).then(data => {
+      const rate = (1 / data.rates[currency]).toFixed(2)
+      if (rate !== price) {
+        if (window.confirm(`Kurs ${currency} w dniu ${date} wynosił: ${rate}. Czy wpisać poprawną wartość do tabeli?`)) {
+          dispatch(changeData(rate, id))
+        }
+      }
+    })
   }
 
   return (
     <StyledForm onSubmit={handleSubmit}>
-      <label>Waluta: </label>
+      <StyledLabel htmlFor={'currency'}>Waluta: </StyledLabel>
       <select
+        name={'currency'}
         value={currency}
         onChange={(e) => setCurrency(e.target.value)}
       >{options.map((option) => {
@@ -29,29 +48,29 @@ export const Form = () => {
           key={option}
           value={option}
                >{option}
-        </option>
+               </option>
       })}
       </select>
-      <label>Ilość:</label>
-      <input
+      <StyledLabel htmlFor={'quantity'}>Ilość:</StyledLabel>
+      <StyledInput
+        name={'quantity'}
         value={quantity}
-        placeholder={'quantity'}
         onChange={(e) => setQuantity(e.target.value)}
       />
-      <label>Data zakupu: </label>
-      <input
+      <StyledLabel htmlFor={'date'}>Data zakupu: </StyledLabel>
+      <StyledInput
+        name={'date'}
         type={'date'}
         value={date}
-        placeholder={'date'}
         onChange={(e) => setDate(e.target.value)}
       />
-      <label>Cena zakupu: </label>
-      <input
+      <StyledLabel htmlFor={'price'}>Cena zakupu: </StyledLabel>
+      <StyledInput
+        name={'price'}
         value={price}
-        placeholder={'price'}
         onChange={(e) => setPrice(e.target.value)}
       />
-      <button>Dodaj</button>
+      <button onClick={handleClick}>Dodaj</button>
     </StyledForm>
   )
 }

@@ -1,4 +1,4 @@
-import { v4 as uuid } from 'uuid'
+// import { v4 as uuid } from 'uuid'
 import types from '../types/types'
 const initState = {
   userData: []
@@ -14,7 +14,7 @@ export const reducerUserData = (state = initState, action) => {
           quantity: action.payload.quantity,
           date: action.payload.date,
           price: action.payload.price,
-          id: uuid()
+          id: action.payload.id
         }]
       }
     case types.CHANGE:
