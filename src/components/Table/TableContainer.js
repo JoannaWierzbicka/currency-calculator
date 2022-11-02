@@ -18,7 +18,7 @@ export const TableContainer = () => {
   }
 
   const getPresentValue = (priceToday, quantity) => {
-    const total = (priceToday * quantity).toFixed(4)
+    const total = (priceToday * quantity).toFixed(2)
     return `${total} zł`
   }
 

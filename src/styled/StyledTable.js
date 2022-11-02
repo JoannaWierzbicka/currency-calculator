@@ -2,11 +2,7 @@ import Table from '@mui/material/Table'
 import { styled } from '@mui/material/styles'
 
 export const StyledTable = styled(Table)`
-  border: 2px solid #1d9f73;
-  background-color: #87c2aeab;
-  margin: 20px;
-  height: fit-content;
-  max-width: 60%;
+border: 2px solid #a687c2;
 `
 
 export default StyledTable

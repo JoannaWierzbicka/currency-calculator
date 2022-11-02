@@ -7,6 +7,7 @@ import StyledLabel from './StyledLabel'
 import StyledSelect from './StyledSelect'
 import StyledTable from './StyledTable'
 import StyledErrors from './StyledErrors'
+import StyledPaper from './StyledPaper'
 
 export {
   StyledButton,
@@ -17,5 +18,6 @@ export {
   StyledLabel,
   StyledSelect,
   StyledTable,
-  StyledErrors
+  StyledErrors,
+  StyledPaper
 }
