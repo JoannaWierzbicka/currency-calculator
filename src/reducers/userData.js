@@ -30,6 +30,11 @@ export const reducerUserData = (state = initState, action) => {
           } return data
         })
       }
+    case types.DELETE_DATA:
+      return {
+        ...state,
+        userData: state.userData.filter(item => item.id !== action.payload)
+      }
     default:
       return state
   }

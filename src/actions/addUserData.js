@@ -1,9 +1,9 @@
-const ADD_DATA = 'addData'
+import types from '../types/types'
 
-export const createActionAdd = (userData) => ({
-  type: ADD_DATA,
+export const createActionAddData = (userData) => ({
+  type: types.ADD_DATA,
   payload: userData
 
 })
 
-export default createActionAdd
+export default createActionAddData

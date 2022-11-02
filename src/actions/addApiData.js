@@ -1,7 +1,7 @@
-const ADD_API_DATA = 'addApiData'
+import types from '../types/types'
 
 export const createActionApi = (apiData) => ({
-  type: ADD_API_DATA,
+  type: types.ADD_API_DATA,
   payload: apiData
 })
 
