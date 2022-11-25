@@ -1,3 +1,8 @@
-# Getting Started with Create React App – CodeRoad Template
+# Portfel walutowy
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and CodeRoad Template.
+Portfel walutowy obliczający potencjalny zysk lub stratę z posiadanych walut.
+
+Aby uruchomić stronę:
+- sklonuj repozytorium
+- uruchom terminal i wpisz komendę npm i
+- uruchom stronę npm start
